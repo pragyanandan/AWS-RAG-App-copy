@@ -18,11 +18,11 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 # Access AWS credentials from environment variables  [To RUN at LOCAL]
-aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
-aws_secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
+#aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
+#aws_secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
 # Access AWS credentials from environment variables  [To RUN at streamlit]
-#aws_access_key_id = st.secrets["aws"]["AWS_ACCESS_KEY_ID"]
-#aws_secret_access_key = st.secrets["aws"]["AWS_SECRET_ACCESS_KEY"]
+aws_access_key_id = st.secrets["aws"]["AWS_ACCESS_KEY_ID"]
+aws_secret_access_key = st.secrets["aws"]["AWS_SECRET_ACCESS_KEY"]
 #aws_region = st.secrets["aws"]["AWS_DEFAULT_REGION"]
 
 # Initialize boto3 client with error handling
