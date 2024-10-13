@@ -39,7 +39,11 @@ bedrock_embeddings=BedrockEmbeddings(model_id="amazon.titan-embed-text-v1",clien
 
 ## Data ingestion
 def data_ingestion():
-    loader=PyPDFDirectoryLoader("data")
+    current_directory = os.getcwd()
+
+# Build the relative path to the data folder
+    data_folder = os.path.join(current_directory, "data")
+    loader=PyPDFDirectoryLoader(data_folder)
     documents=loader.load()
 
     # - in our testing Character split works better with this PDF data set
