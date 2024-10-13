@@ -8,12 +8,13 @@ Act as a Shakespeare and write a poem on Generative AI
 """
 
 # Access AWS credentials from environment variables  [To RUN at LOCAL]
-#aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
-#aws_secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
+aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
+aws_secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
 # Access AWS credentials from environment variables  [To RUN at streamlit]
-aws_access_key_id = st.secrets["aws"]["AWS_ACCESS_KEY_ID"]
-aws_secret_access_key = st.secrets["aws"]["AWS_SECRET_ACCESS_KEY"]
-aws_region = st.secrets["aws"]["AWS_DEFAULT_REGION"]
+#aws_access_key_id = st.secrets["aws"]["AWS_ACCESS_KEY_ID"]
+#aws_secret_access_key = st.secrets["aws"]["AWS_SECRET_ACCESS_KEY"]
+#aws_region = st.secrets["aws"]["AWS_DEFAULT_REGION"] 
+#try
 
 # Initialize the Bedrock client
 bedrock = boto3.client(

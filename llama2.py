@@ -1,18 +1,19 @@
 import boto3
 import json
 import streamlit as st
+import os
 
 prompt_data="""
 Act as a Shakespeare and write a poem on Genertaive AI
 """
 
 # Access AWS credentials from environment variables  [To RUN at LOCAL]
-#aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
-#aws_secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
+aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
+aws_secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
 # Access AWS credentials from environment variables  [To RUN at streamlit]
-aws_access_key_id = st.secrets["aws"]["AWS_ACCESS_KEY_ID"]
-aws_secret_access_key = st.secrets["aws"]["AWS_SECRET_ACCESS_KEY"]
-aws_region = st.secrets["aws"]["AWS_DEFAULT_REGION"]
+#aws_access_key_id = st.secrets["aws"]["AWS_ACCESS_KEY_ID"]
+#aws_secret_access_key = st.secrets["aws"]["AWS_SECRET_ACCESS_KEY"]
+#aws_region = st.secrets["aws"]["AWS_DEFAULT_REGION"]
 
 bedrock = boto3.client(
     service_name="bedrock-runtime",
