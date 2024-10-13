@@ -24,7 +24,8 @@ logging.basicConfig(level=logging.INFO)
 aws_access_key_id = st.secrets["aws"]["AWS_ACCESS_KEY_ID"]
 aws_secret_access_key = st.secrets["aws"]["AWS_SECRET_ACCESS_KEY"]
 #aws_region = st.secrets["aws"]["AWS_DEFAULT_REGION"]
-
+print("XXXXXXXXXXX")
+print(aws_access_key_id)
 # Initialize boto3 client with error handling
 try:
     bedrock = boto3.client(
