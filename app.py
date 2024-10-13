@@ -40,6 +40,27 @@ except Exception as e:
     logging.error(f"Error initializing Bedrock Embeddings: {e}")
     st.error("Failed to initialize Bedrock Embeddings. Check your model configuration.")
 
+# Define the prompt template
+prompt_template = """
+Human: Use the following pieces of context to provide a 
+concise answer to the question at the end but summarize with 
+at least 250 words with detailed explanations. If you don't know the answer, 
+just say that you don't know, don't try to make up an answer.
+
+<context>
+{context}
+</context>
+
+Question: {question}
+
+Assistant:
+"""
+
+# Create the PromptTemplate object
+PROMPT = PromptTemplate(
+    template=prompt_template, input_variables=["context", "question"]
+)
+
 # Data ingestion function
 def data_ingestion():
     current_directory = os.getcwd()
@@ -67,7 +88,11 @@ def get_vector_store(docs):
 # Function to get the Claude model with logging
 def get_claude_llm():
     try:
-        llm = Bedrock(model_id="anthropic.claude-v2:1", client=bedrock, model_kwargs={'maxTokens': 512})
+        llm = Bedrock(
+            model_id="anthropic.claude-v2:1",
+            client=bedrock,
+            model_kwargs={'max_tokens_to_sample': 512}
+        )
         logging.info("Initialized Claude model.")
         return llm
     except Exception as e:
@@ -83,6 +108,27 @@ def get_llama2_llm():
     except Exception as e:
         logging.error(f"Error initializing Llama2 LLM: {e}")
         st.error("Failed to initialize Llama2 LLM.")
+
+# Function to get LLM responses with the vector store and query
+def get_response_llm(llm, vectorstore_faiss, query):
+    # Create a RetrievalQA instance using the provided LLM and vector store
+    qa = RetrievalQA.from_chain_type(
+        llm=llm,
+        chain_type="stuff",  # Adjust chain type based on your use case
+        retriever=vectorstore_faiss.as_retriever(
+            search_type="similarity", search_kwargs={"k": 3}
+        ),
+        return_source_documents=True,  # This ensures both result and source documents are returned
+        chain_type_kwargs={"prompt": PROMPT}
+    )
+    
+    # Run the query through the QA chain and get the full response
+    response = qa({"query": query})
+
+    # Extract and return only the 'result' key from the response
+    answer = response.get('result', "No answer found")
+    return answer
+
 
 # Main function
 def main():
