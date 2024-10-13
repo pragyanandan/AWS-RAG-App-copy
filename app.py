@@ -43,6 +43,7 @@ def data_ingestion():
 
 # Build the relative path to the data folder
     data_folder = os.path.join(current_directory, "data")
+    print(data_folder)
     loader=PyPDFDirectoryLoader(data_folder)
     documents=loader.load()
 
