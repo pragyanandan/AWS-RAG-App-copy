@@ -1,10 +1,6 @@
-boto3
-awscli
-langchain_community
-faiss-cpu
-pypdfpip
-json
-os
-sys
-streamlit
+boto3==1.35.39
+awscli==1.35.5
+langchain-community==0.3.2
+faiss-cpu==1.9.0
+pypdf==3.12.1  
 
